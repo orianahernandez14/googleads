@@ -1,0 +1,216 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Laboratorio interactivo de campañas TrueView y facturación."><title>Laboratorio de Google Ads</title></head><body><div id="ads-lab">
+<style>
+#ads-lab{color-scheme:light dark;--paper:light-dark(#fff,#20242b);--bg:light-dark(#f1f4f9,#171a20);--ink:light-dark(#202124,#edf1fa);--sub:light-dark(#4e596b,#b6c2d4);--line:light-dark(#dce3ee,#3b4557);--blue:light-dark(#1558bb,#a5caff);font:14px/1.5 system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+#ads-lab *{box-sizing:border-box}#ads-lab [hidden]{display:none!important}
+#ads-lab header,#ads-lab nav,#ads-lab main{padding:14px 22px}#ads-lab header{background:var(--paper);border-bottom:1px solid var(--line);padding-right:105px}
+#ads-lab h2,#ads-lab h3,#ads-lab p{margin:0}#ads-lab h2{font-size:22px}#ads-lab h3{font-size:17px;margin-bottom:10px}#ads-lab small,#ads-lab .muted{color:var(--sub)}
+#ads-lab nav,#ads-lab .fields{display:flex;flex-wrap:wrap;gap:10px}#ads-lab button,#ads-lab input{font:inherit;color:inherit;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+#ads-lab button[aria-pressed=true]{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+#ads-lab .fields{margin-bottom:15px;align-items:end}#ads-lab label{display:grid;gap:4px;flex:1 1 145px}#ads-lab input{width:100%;min-width:0}#ads-lab .panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+#ads-lab .scroll{overflow:auto}#ads-lab table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}#ads-lab th,#ads-lab td{text-align:right;padding:9px;border-bottom:1px solid var(--line)}#ads-lab th:first-child,#ads-lab td:first-child{text-align:left}#ads-lab th{color:var(--sub);font-weight:600}#ads-lab tfoot{font-weight:700}#ads-lab .money{white-space:nowrap}
+#ads-lab summary{color:var(--blue);padding:8px 0}#ads-lab .note{margin-top:10px}#ads-lab #ads-error{color:light-dark(#a72417,#ffaca5);margin-bottom:10px}
+@media(max-width:520px){#ads-lab header,#ads-lab nav,#ads-lab main{padding-left:12px;padding-right:12px}#ads-lab header{padding-right:92px}#ads-lab .panel{padding:11px}}
+
+body{margin:0;background:#f0f2f4}
+#ads-lab{color-scheme:light;--paper:#fff;--bg:#eff1f3;--ink:#202124;--sub:#5f6368;--line:#dadce0;--blue:#1967d2;font-family:Arial,sans-serif;min-height:100vh}
+#ads-lab header{height:63px;display:flex;align-items:center;justify-content:space-between;padding:0 25px;background:var(--bg);position:sticky;top:0;z-index:1}
+#ads-lab .brand{display:flex;align-items:center;gap:10px;font-size:21px;color:#5f6368}
+#ads-lab .brand-mark{position:relative;width:28px;height:27px;display:inline-block}
+#ads-lab .brand-mark i,#ads-lab .brand-mark b{position:absolute;top:1px;width:9px;height:25px;border-radius:8px;transform:rotate(30deg);left:5px;background:#fbbc04}
+#ads-lab .brand-mark b{left:13px;transform:rotate(-30deg);background:#4285f4}
+#ads-lab .brand-mark em{position:absolute;left:1px;bottom:1px;width:9px;height:9px;border-radius:50%;background:#34a853}
+#ads-lab .shell{display:grid;grid-template-columns:70px 206px minmax(0,1fr);min-height:calc(100vh - 63px)}
+#ads-lab .rail{display:flex;flex-direction:column;align-items:stretch;gap:11px;padding:13px 4px;border-right:1px solid var(--line)}
+#ads-lab .rail button{padding:3px 0;font-size:10px;border:0;background:transparent;color:#5f6368}
+#ads-lab .rail button[aria-pressed=true]{color:#1967d2}
+#ads-lab .rail span{display:block;margin:0 auto 3px;width:39px;border-radius:20px;font-size:19px;line-height:26px}
+#ads-lab .rail button[aria-pressed=true] span{background:#1a73e8;color:#fff}
+#ads-lab .sidebar{padding:14px 9px}
+#ads-lab .side-title{padding:8px 12px;color:#5f6368;font-size:12px}
+#ads-lab nav{background:#fff;border-radius:18px;padding:8px 0;flex-direction:column;gap:4px}
+#ads-lab nav button{border:0;border-radius:22px;text-align:left;padding:10px 13px}
+#ads-lab nav button[aria-pressed=true]{background:#1a73e8;color:#fff}
+#ads-lab .side-note{font-size:12px;padding:13px 12px;color:#5f6368}
+#ads-lab main{padding:15px 23px 25px 12px;min-width:0}
+#ads-lab .crumb{width:max-content;border:1px solid #bdc1c6;background:#fff;border-radius:4px;padding:3px 12px;font-size:12px}
+#ads-lab .crumb span{display:block;color:#5f6368}
+#ads-lab .page-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin:14px 0;border-top:1px solid var(--line);padding-top:12px}
+#ads-lab h1{font-size:20px;font-weight:400;margin:0}
+#ads-lab .period{padding:6px 10px;border:1px solid #bdc1c6;border-radius:4px;font-size:12px}
+#ads-lab .fields{gap:8px;align-items:end}
+#ads-lab label{flex:0 1 190px;font-size:12px}
+#ads-lab input,#ads-lab #ads-reset{border-radius:4px;padding:6px 9px}
+#ads-lab #ads-reset{color:#1967d2}
+#ads-lab .panel{border-radius:0;padding:12px;background:#fff}
+#ads-lab table{font-size:12px}
+#ads-lab th,#ads-lab td{border:1px solid #dadce0;padding:9px 8px}
+#ads-lab tbody th{color:#1967d2;font-weight:400}
+#ads-lab tfoot{background:#f4f6f9}
+#ads-lab button,#ads-lab summary{cursor:pointer}
+@media(max-width:800px){#ads-lab .shell{grid-template-columns:60px minmax(0,1fr)}#ads-lab .sidebar{display:none}}
+@media(max-width:450px){#ads-lab .shell{grid-template-columns:minmax(0,1fr)}#ads-lab .rail{flex-direction:row;border-right:0;border-bottom:1px solid var(--line);padding:4px 10px;gap:18px}#ads-lab header{padding:0 12px}#ads-lab .brand{font-size:17px}#ads-lab main{padding:10px}#ads-lab label{flex:1 1 130px}}
+
+#ads-lab #ads-menu{border:0;background:transparent;padding:4px 6px;margin-right:9px;color:#5f6368}
+#ads-lab .shell{grid-template-columns:70px 250px minmax(0,1fr)}
+#ads-lab .sidebar{padding:14px 9px}
+#ads-lab .rail{border:0;gap:14px}
+#ads-lab .rail .create span{height:50px;width:50px;line-height:49px;font-size:34px;color:#1a73e8;background:white;box-shadow:0 2px 5px #0003;border-radius:50%}
+#ads-lab nav{background:transparent;padding:0;gap:5px}
+#ads-lab nav button{background:transparent;width:100%;font-size:13px;color:#202124;padding:11px 14px}
+#ads-lab nav button:hover{background:#e5ebf4}
+#ads-lab nav button[aria-pressed=true]{background:#1a73e8;color:white}
+#ads-lab .campaign-group{background:white;border-radius:24px;padding:4px 7px 9px}
+#ads-lab .campaign-group summary{list-style:none;padding:10px 14px;color:#1967d2;font-size:13px}
+#ads-lab .campaign-group summary::after,#ads-lab .with-chevron::after{content:'⌄';float:right}
+#ads-lab .campaign-group[open] summary::after{content:'⌃'}
+#ads-lab .campaign-group button{padding-left:24px}
+#ads-lab.menu-collapsed .shell{grid-template-columns:70px minmax(0,1fr)}
+#ads-lab.menu-collapsed .sidebar{display:none}
+@media(max-width:800px){
+  #ads-lab .shell,#ads-lab.menu-collapsed .shell{grid-template-columns:60px minmax(0,1fr)}
+  #ads-lab .rail{grid-row:1 / span 2}
+  #ads-lab .sidebar{display:block;grid-column:2}
+  #ads-lab main{grid-column:2}
+}
+</style>
+<header><div class="brand"><button type="button" id="ads-menu" aria-label="Mostrar u ocultar menú" aria-expanded="true" aria-controls="ads-sidebar">☰</button><span aria-hidden="true" class="brand-mark"><i></i><b></b><em></em></span>Google Ads</div></header>
+<div class="shell">
+<aside class="rail" aria-label="Secciones principales">
+<button type="button" data-rail="create" data-title="Crear" class="create"><span aria-hidden="true">+</span>Crear</button>
+<button type="button" data-rail="campaigns" data-view-target="campaigns" aria-pressed="true"><span aria-hidden="true">◀</span>Campañas</button>
+<button type="button" data-rail="goals" data-title="Objetivos"><span aria-hidden="true">♜</span>Objetivos</button>
+<button type="button" data-rail="tools" data-title="Herramientas"><span aria-hidden="true">⚒</span>Herramientas</button>
+<button type="button" data-rail="billing" data-view-target="billing" aria-pressed="false"><span aria-hidden="true">▤</span>Facturación</button>
+<button type="button" data-rail="admin" data-title="Administración"><span aria-hidden="true">⚙</span>Administración</button>
+</aside>
+<div class="sidebar" id="ads-sidebar">
+<nav aria-label="Menú de Campañas" id="ads-campaign-menu">
+<button type="button" data-title="Vista general">Vista general</button>
+<button type="button" data-title="Recomendaciones">Recomendaciones</button>
+<button type="button" data-title="Estadísticas e informes" class="with-chevron">Estadísticas e informes</button>
+<details class="campaign-group" open><summary>Campañas</summary>
+<button type="button" data-title="Campañas">Campañas</button>
+<button type="button" data-view-target="campaigns" aria-pressed="true">Grupos de anuncios</button>
+<button type="button" data-title="Anuncios">Anuncios</button>
+<button type="button" data-title="Experimentos">Experimentos</button>
+<button type="button" data-title="Grupos de campañas">Grupos de campañas</button>
+</details>
+<button type="button" data-title="Recursos" class="with-chevron">Recursos</button>
+<button type="button" data-title="Audiencias, palabras clave y contenido" class="with-chevron">Audiencias, palabras clave y contenido</button>
+<button type="button" data-title="Historial de cambios">Historial de cambios</button>
+</nav>
+<nav aria-label="Menú de Facturación" id="ads-billing-menu" hidden>
+<button type="button" data-view-target="billing" aria-pressed="false">Resumen</button>
+</nav>
+<p class="side-note">Datos de ejemplo</p></div>
+<main>
+<div class="crumb"><span>Vista</span><strong>Todas las campañas</strong></div>
+<div class="page-head"><h1 id="ads-page-title">Grupos de anuncios</h1><span class="period">16 oct – 8 nov de 2026</span></div>
+<div class="fields">
+<button id="ads-reset" type="button">Restablecer escenario</button>
+</div>
+<p id="ads-error" role="alert" hidden></p>
+<section class="panel" data-view="campaigns">
+<h3>Parámetros de campaña</h3>
+<div class="fields">
+<label>Peso John (USD de referencia)<input id="ads-john-weight" type="number" min="0" max="1000000" step="0.01" value="400"></label>
+<label>Peso Junior (USD de referencia)<input id="ads-junior-weight" type="number" min="0" max="1000000" step="0.01" value="500"></label>
+<label>Vistas TrueView de John<input id="ads-john-views" type="number" min="0" max="225246" step="1" value="103843"></label>
+<label>Vistas TrueView de Junior<input id="ads-junior-views" type="number" min="0" max="353618" step="1" value="111363"></label>
+</div>
+<div class="scroll"><table aria-label="Rendimiento proyectado">
+<thead><tr><th scope="col">Campaña</th><th scope="col">Impresiones</th><th scope="col">Vistas TrueView</th><th scope="col">CPV medio</th><th scope="col">Coste</th></tr></thead>
+<tbody id="ads-campaign-rows"></tbody><tfoot id="ads-campaign-total"></tfoot>
+</table></div>
+<p class="muted note">El gasto en pesos se reparte según los pesos de referencia. El CPV medio es el coste dividido por las vistas TrueView.</p>
+</section>
+<section class="panel" data-view="billing" hidden>
+<h3>Pagos · octubre 2026</h3>
+<div class="scroll"><table aria-label="Pagos de ejemplo"><thead><tr><th scope="col">Fecha</th><th scope="col">Tarjeta</th><th scope="col">USD</th><th scope="col">ARS</th></tr></thead><tbody id="ads-payment-rows"></tbody><tfoot id="ads-payment-total"></tfoot></table></div>
+<details><summary>Ver intentos rechazados</summary><p class="muted">16 y 20 de octubre · Visa D. 26 de octubre · Mastercard E. Estos intentos de ejemplo aportan ARS 0,00 al total.</p></details>
+</section>
+<section class="panel" data-view="placeholder" hidden><p class="muted">Sección pendiente de configurar.</p></section>
+<p id="ads-status" class="muted" aria-live="polite"></p>
+</main>
+</div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('ads-lab');
+  const get = key => root.querySelector('#ads-' + key);
+  const keys = ['john-weight', 'junior-weight', 'john-views', 'junior-views'];
+  const inputs = keys.map(get);
+  const payments = [
+    [19, 'Visa A', 14558], [20, 'Visa A', 8142],
+    [22, 'Visa B', 9549], [22, 'Mastercard C', 12449],
+    [23, 'Visa B', 9548], [24, 'Visa B', 9548],
+    [26, 'Mastercard C', 16368]
+  ];
+  const decimal = new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const integer = new Intl.NumberFormat('es-AR');
+  const ars = cents => 'ARS ' + decimal.format(cents / 100);
+  const cpv = (cents, views) => views ? 'ARS ' + decimal.format(cents / 100 / views) : '—';
+  function render() {
+    const [johnWeight, juniorWeight, johnViews, juniorViews] = inputs.map(input => input.valueAsNumber);
+    const invalid = inputs.some(input => !Number.isFinite(input.valueAsNumber) || !input.validity.valid);
+    const error = invalid ? 'Ingresa valores válidos. Las vistas deben ser enteras y estar entre cero y las impresiones.' :
+      johnWeight + juniorWeight === 0 ? 'Al menos una campaña debe tener un peso mayor que cero.' : '';
+    get('error').hidden = !error;
+    get('error').textContent = error;
+    if (error) {
+      get('status').textContent = 'Se muestran los últimos valores válidos.';
+      return;
+    }
+    const rateCents = 164300;
+    const converted = payments.map(([, , usd]) => Math.round(usd * rateCents / 100));
+    const total = converted.reduce((sum, cents) => sum + cents, 0);
+    const usdTotal = payments.reduce((sum, [, , usd]) => sum + usd, 0);
+    const johnCost = Math.round(total * johnWeight / (johnWeight + juniorWeight));
+    const views = johnViews + juniorViews;
+    const campaignRow = (name, impressions, views, cost) =>
+      '<tr><th scope="row">' + name + '</th><td>' + integer.format(impressions) + '</td><td>' +
+      integer.format(views) + '</td><td class="money">' + cpv(cost, views) +
+      '</td><td class="money">' + ars(cost) + '</td></tr>';
+    get('campaign-rows').innerHTML = campaignRow('John Theis', 225246, johnViews, johnCost) +
+      campaignRow('Junior Caldera', 353618, juniorViews, total - johnCost);
+    get('campaign-total').innerHTML = campaignRow('Total', 578864, views, total);
+    get('payment-rows').innerHTML = payments.map(([day, card, usd], index) =>
+      '<tr><th scope="row">' + day + ' oct 2026</th><td>' + card +
+      '</td><td>' + decimal.format(usd / 100) + '</td><td class="money">' + ars(converted[index]) + '</td></tr>').join('');
+    get('payment-total').innerHTML = '<tr><th scope="row">Total</th><td></td><td>' +
+      decimal.format(usdTotal / 100) + '</td><td class="money">' + ars(total) + '</td></tr>';
+    get('status').textContent = 'Total del escenario: ' + ars(total) + ' · CPV medio: ' + cpv(total, views);
+  }
+  const entries = root.querySelectorAll('[data-view-target], [data-title]');
+  const railEntries = root.querySelectorAll('[data-rail]');
+  entries.forEach(entry => entry.addEventListener('click', () => {
+    const view = entry.dataset.viewTarget || 'placeholder';
+    const group = entry.dataset.rail || 'campaigns';
+    get('page-title').textContent = entry.dataset.title ||
+      (view === 'billing' ? 'Resumen de facturación' : 'Grupos de anuncios');
+    get('campaign-menu').hidden = group === 'billing';
+    get('billing-menu').hidden = group !== 'billing';
+    railEntries.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.rail === group)));
+    root.querySelectorAll('.sidebar button').forEach(button => {
+      const active = button === entry || (view !== 'placeholder' && button.dataset.viewTarget === view);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    root.querySelectorAll('[data-view]').forEach(panel => { panel.hidden = panel.dataset.view !== view; });
+    get('reset').parentElement.hidden = view !== 'campaigns';
+    get('status').hidden = view === 'placeholder';
+    root.querySelector('.crumb').hidden = view !== 'campaigns';
+    root.querySelector('.period').hidden = view === 'placeholder';
+  }));
+  get('menu').addEventListener('click', () => {
+    const collapsed = root.classList.toggle('menu-collapsed');
+    get('menu').setAttribute('aria-expanded', String(!collapsed));
+  });
+  inputs.forEach(input => input.addEventListener('input', render));
+  get('reset').addEventListener('click', () => {
+    inputs.forEach(input => { input.value = input.defaultValue; });
+    render();
+  });
+  render();
+})();
+</script>
+</body></html>
