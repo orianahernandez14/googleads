@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Simulador interactivo de campañas publicitarias."><title>Laboratorio de Google Ads</title></head><body><div id="ads-lab">
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Configurador interactivo de campañas publicitarias."><title>Laboratorio de Google Ads</title></head><body><div id="ads-lab">
 <style>
 #ads-lab{color-scheme:light dark;--paper:light-dark(#fff,#20242b);--bg:light-dark(#f1f4f9,#171a20);--ink:light-dark(#202124,#edf1fa);--sub:light-dark(#4e596b,#b6c2d4);--line:light-dark(#dce3ee,#3b4557);--blue:light-dark(#1558bb,#a5caff);font:14px/1.5 system-ui,sans-serif;color:var(--ink);background:var(--bg)}
 #ads-lab *{box-sizing:border-box}#ads-lab [hidden]{display:none!important}
@@ -328,7 +328,7 @@ body{margin:0;background:#f0f2f4}
     const usedBy = Object.entries(schema).find(([key,config]) => config[3].some(field => field.target === current &&
       rows(key).some(item => Array.isArray(item[field.key]) ? item[field.key].includes(row.id) : item[field.key] === row.id)));
     if (usedBy) { get('status').textContent = 'Quita primero las referencias en '+usedBy[1][0]+'.'; return; }
-    if (confirm('¿Eliminar este registro de práctica?') && save(current,rows(current).filter(item => item.id !== row.id),'Eliminado',row)) {
+    if (confirm('¿Eliminar este registro?') && save(current,rows(current).filter(item => item.id !== row.id),'Eliminado',row)) {
       render(); get('status').textContent = 'Registro eliminado.';
     }
   });
